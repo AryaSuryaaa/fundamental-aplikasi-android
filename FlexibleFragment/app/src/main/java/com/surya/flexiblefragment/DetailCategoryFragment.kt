@@ -1,5 +1,6 @@
 package com.surya.flexiblefragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,17 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailCategoryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailCategoryFragment : Fragment() {
     private lateinit var tvCategoryName: TextView
     private lateinit var tvCategoryDescription: TextView
@@ -57,5 +49,34 @@ class DetailCategoryFragment : Fragment() {
             tvCategoryDescription.text = description
         }
 
+        btnShowDialog.setOnClickListener{
+            val optionDialogFragment = OptionDialogFragment()
+
+            val fragmentManager = childFragmentManager
+            optionDialogFragment.show(fragmentManager, OptionDialogFragment::class.java.simpleName)
+        }
+
+        btnProfile.setOnClickListener {
+            val intent = Intent(requireActivity(), ProfileActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    /*
+    Gunakan method ini jika kita ingin menjaga data agar tetap aman ketika terjadi config changes (portrait - landscape)
+     */
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putString(EXTRA_DESCRIPTION, description)
+    }
+
+    /*
+    Kode yang akan dijalankan ketika option dialog dipilih ok
+    */
+    internal var optionDialogListener = object : OptionDialogFragment.OnOptionDialogListener {
+        override fun onOptionChosen(text: String?) {
+            Toast.makeText(requireActivity(), text, Toast.LENGTH_SHORT).show()
+        }
     }
 }
