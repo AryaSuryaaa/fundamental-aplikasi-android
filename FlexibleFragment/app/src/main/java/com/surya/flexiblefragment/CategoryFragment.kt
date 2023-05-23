@@ -12,10 +12,10 @@ import android.widget.Button
 
 /**
  * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
+ * Use the [CategoryFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragment : Fragment(), View.OnClickListener {
+class CategoryFragment : Fragment(), View.OnClickListener {
     // TODO: Rename and change types of parameters
 
     override fun onCreateView(
@@ -23,24 +23,19 @@ class HomeFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_category, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val btnCategory: Button = view.findViewById(R.id.btn_category)
-        btnCategory.setOnClickListener(this)
+        val btnDetailCategory: Button = view.findViewById(R.id.btn_detail_category)
+        btnDetailCategory.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
-        if (v.id == R.id.btn_category) {
-            val categoryFragment = CategoryFragment()
-            val fragmentManager = parentFragmentManager
-            fragmentManager.beginTransaction().apply {
-                replace(R.id.frame_container, categoryFragment, CategoryFragment::class.java.simpleName)
-                addToBackStack(null)
-                commit()
-            }
+        if (v.id == R.id.btn_detail_category) {
+
         }
+
     }
 }
