@@ -7,8 +7,4 @@
     tools:context=".MainActivity"
     android:id="@+id/frame_container">
 
-
-
-
-
 </FrameLayout>
