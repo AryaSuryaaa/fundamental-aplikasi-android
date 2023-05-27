@@ -1,13 +1,7 @@
-buildscript {
-    dependencies {
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3"
-    }
-}
-
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'android.navigation.safeargs'
+    id "androidx.navigation.safeargs"
 }
 
 android {
