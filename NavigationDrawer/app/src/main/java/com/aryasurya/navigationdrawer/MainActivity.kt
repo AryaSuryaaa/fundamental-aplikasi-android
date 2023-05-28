@@ -12,7 +12,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import com.aryasurya.navigationdrawer.databinding.ActivityMainBinding
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
