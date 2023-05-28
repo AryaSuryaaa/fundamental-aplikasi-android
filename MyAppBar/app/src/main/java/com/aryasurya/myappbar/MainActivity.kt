@@ -13,8 +13,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.topAppBar.setOnClickListener{ menuItem ->
-            when(menuItem.id) {
+        binding.topAppBar.setOnMenuItemClickListener(){ menuItem ->
+            when (menuItem.itemId) {
                 R.id.menu1 -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, MenuFragment())
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu2 -> {
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, MenuFragment::class.java)
                     startActivity(intent)
                     true
                 }
