@@ -28,4 +28,10 @@
         android:name="com.aryasurya.bottomnavigation.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile"/>
+
+    <fragment
+        android:id="@+id/navigation_subscription"
+        android:name="com.aryasurya.bottomnavigation.SubscriptionFragment"
+        android:label="@string/title_subscription"
+        tools:layout="@layout/fragment_subscription"/>
 </navigation>
