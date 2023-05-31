@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers:Array<Header>, responseBody: ByteArray)  {
                 // Jiika koneksi berhasil
-                binding.progressBar.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
 
                 val result = String(responseBody)
                 Log.d(TAG, result)
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                     val author = responseObject.getString("author")
 
                     binding.tvQuote.text = quote
-                    binding.tvAuthor.text = quote
+                    binding.tvAuthor.text = author
                 } catch (e: Exception) {
                     Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
                     e.printStackTrace()
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
                 // Jika koneksi gagal
-                binding.progressBar.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
 
                 val errorMessage = when (statusCode) {
                     401 -> "$statusCode : Bad Request"
