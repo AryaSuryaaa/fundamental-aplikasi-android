@@ -72,10 +72,10 @@ class MainActivity : AppCompatActivity() {
 //                Simulate process in background thread
                 for (i in 0..10) {
                     delay(500)
-                    val percentage = 1 * 10
+                    val percentage = i * 10
                     withContext(Dispatchers.Main) {
 //                        Update ui in main thread
-                        if (percentage == 10) {
+                        if (percentage == 100) {
                             tvStatus.setText(R.string.task_completed)
                         } else {
                             tvStatus.text = String.format(getString(R.string.compressing), percentage)
@@ -84,5 +84,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+
     }
 }
