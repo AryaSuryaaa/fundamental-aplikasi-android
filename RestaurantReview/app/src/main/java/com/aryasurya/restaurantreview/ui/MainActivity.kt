@@ -1,15 +1,15 @@
 package com.aryasurya.restaurantreview.ui
 
-import android.net.DnsResolver
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aryasurya.restaurantreview.R
 import com.aryasurya.restaurantreview.data.response.CustomerReviewsItem
+import com.aryasurya.restaurantreview.data.response.PostReviewResponse
 import com.aryasurya.restaurantreview.data.response.Restaurant
 import com.aryasurya.restaurantreview.data.response.RestaurantResponse
 import com.aryasurya.restaurantreview.data.retrofit.ApiConfig
@@ -17,7 +17,6 @@ import com.aryasurya.restaurantreview.databinding.ActivityMainBinding
 import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -39,6 +38,36 @@ class MainActivity : AppCompatActivity() {
         binding.rvReview.addItemDecoration(itemDecoration)
 
         findRestaurant()
+
+        binding.btnSend.setOnClickListener { view ->
+            postReview(binding.edReview.text.toString())
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
+    private fun postReview(review: String) {
+        showLoading(true)
+        val client = ApiConfig.getApiService().postResview(RESTAURANT_ID, "Arya Surya", review)
+        client.enqueue(object : retrofit2.Callback<PostReviewResponse> {
+            override fun onResponse(
+                call: Call<PostReviewResponse>,
+                response: Response<PostReviewResponse>
+            ) {
+                showLoading(false)
+                val responseBody = response.body()
+                if (response.isSuccessful && responseBody != null) {
+                    setReviewData(responseBody.customerReviews)
+                } else {
+                    Log.d(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<PostReviewResponse>, t: Throwable) {
+                showLoading(false)
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
     }
 
     private fun findRestaurant() {
