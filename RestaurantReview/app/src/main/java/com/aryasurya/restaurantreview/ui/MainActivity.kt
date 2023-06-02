@@ -46,56 +46,56 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun postReview(review: String) {
-        showLoading(true)
-        val client = ApiConfig.getApiService().postResview(RESTAURANT_ID, "Arya Surya", review)
-        client.enqueue(object : retrofit2.Callback<PostReviewResponse> {
-            override fun onResponse(
-                call: Call<PostReviewResponse>,
-                response: Response<PostReviewResponse>
-            ) {
-                showLoading(false)
-                val responseBody = response.body()
-                if (response.isSuccessful && responseBody != null) {
-                    setReviewData(responseBody.customerReviews)
-                } else {
-                    Log.d(TAG, "onFailure: ${response.message()}")
-                }
-            }
+//    private fun postReview(review: String) {
+//        showLoading(true)
+//        val client = ApiConfig.getApiService().postResview(RESTAURANT_ID, "Arya Surya", review)
+//        client.enqueue(object : retrofit2.Callback<PostReviewResponse> {
+//            override fun onResponse(
+//                call: Call<PostReviewResponse>,
+//                response: Response<PostReviewResponse>
+//            ) {
+//                showLoading(false)
+//                val responseBody = response.body()
+//                if (response.isSuccessful && responseBody != null) {
+//                    setReviewData(responseBody.customerReviews)
+//                } else {
+//                    Log.d(TAG, "onFailure: ${response.message()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<PostReviewResponse>, t: Throwable) {
+//                showLoading(false)
+//                Log.e(TAG, "onFailure: ${t.message}")
+//            }
+//        })
+//    }
 
-            override fun onFailure(call: Call<PostReviewResponse>, t: Throwable) {
-                showLoading(false)
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        })
-    }
-
-    private fun findRestaurant() {
-        showLoading(true)
-        val client = ApiConfig.getApiService().getRestaurant(RESTAURANT_ID)
-        client.enqueue(object : retrofit2.Callback<RestaurantResponse> {
-            override fun onResponse(
-                call: Call<RestaurantResponse>,
-                response: Response<RestaurantResponse>
-            ) {
-                showLoading(false)
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        setRestaurantData(responseBody.restaurant)
-                        setReviewData(responseBody.restaurant.customerReviews)
-                    }
-                } else {
-                    Log.d(TAG, "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<RestaurantResponse>, t: Throwable) {
-                showLoading(false)
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        })
-    }
+//    private fun findRestaurant() {
+//        showLoading(true)
+//        val client = ApiConfig.getApiService().getRestaurant(RESTAURANT_ID)
+//        client.enqueue(object : retrofit2.Callback<RestaurantResponse> {
+//            override fun onResponse(
+//                call: Call<RestaurantResponse>,
+//                response: Response<RestaurantResponse>
+//            ) {
+//                showLoading(false)
+//                if (response.isSuccessful) {
+//                    val responseBody = response.body()
+//                    if (responseBody != null) {
+//                        setRestaurantData(responseBody.restaurant)
+//                        setReviewData(responseBody.restaurant.customerReviews)
+//                    }
+//                } else {
+//                    Log.d(TAG, "onFailure: ${response.message()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<RestaurantResponse>, t: Throwable) {
+//                showLoading(false)
+//                Log.e(TAG, "onFailure: ${t.message}")
+//            }
+//        })
+//    }
 
     private fun setReviewData(consumerReviews: List<CustomerReviewsItem>) {
         val adapter = ReviewAdapter()
