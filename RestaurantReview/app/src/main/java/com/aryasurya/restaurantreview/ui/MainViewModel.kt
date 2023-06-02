@@ -55,7 +55,7 @@ class MainViewModel: ViewModel() {
         })
     }
 
-    private fun postReview(review: String) {
+    fun postReview(review: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().postResview(RESTAURANT_ID, "Arya Surya", review)
         client.enqueue(object : retrofit2.Callback<PostReviewResponse> {

@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aryasurya.restaurantreview.data.response.CustomerReviewsItem
@@ -20,6 +23,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+//    private  val mainViewModel: MainViewModel by viewModels()
 
     companion object {
         private const val TAG = "MainActivity"
@@ -32,15 +36,30 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+
+        mainViewModel.restaurant.observe(this) { restaurant ->
+            setRestaurantData(restaurant)
+        }
+
         val layoutManager = LinearLayoutManager(this)
         binding.rvReview.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvReview.addItemDecoration(itemDecoration)
 
-        findRestaurant()
+//        findRestaurant()
+
+        mainViewModel.listReview.observe(this) { customerReviews ->
+            setReviewData(customerReviews)
+        }
+
+        mainViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
 
         binding.btnSend.setOnClickListener { view ->
-            postReview(binding.edReview.text.toString())
+//            postReview(binding.edReview.text.toString())
+            mainViewModel.postReview(binding.edReview.text.toString())
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
