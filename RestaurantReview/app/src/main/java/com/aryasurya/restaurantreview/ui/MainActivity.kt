@@ -25,6 +25,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 //    private  val mainViewModel: MainViewModel by viewModels()
+    private val mainViewModel by viewModels<MainViewModel>()
 
     companion object {
         private const val TAG = "MainActivity"
@@ -37,11 +38,11 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+//        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
 
-        mainViewModel.restaurant.observe(this) { restaurant ->
+        mainViewModel.restaurant.observe(this, { restaurant ->
             setRestaurantData(restaurant)
-        }
+        })
 
         val layoutManager = LinearLayoutManager(this)
         binding.rvReview.layoutManager = layoutManager
